@@ -9,6 +9,8 @@ Machine-readable records are in `findings/*.json`; the tests the reference fails
    diagnostic reports the value that failed. Fix: format the exact operand.
 2. **F9/F6 `-0.0` text.** f64 `tostr(-0.0)` prints `0`; f32 prints `-0`. F9
    requires text round-trip, and `0` reads back as +0. Fix: print `-0` for f64.
+   Closed: rce/host 982eb3e63 prints `-0`; numbers/targeted/f6-f64-tostr-minus-zero
+   passes and leaves the baseline.
 3. **T7 renames and D.** T7 says renaming keeps log hashes, but event and
    error names are part of D's input and D is injective, so renaming them
    must change the hash. Fix: restrict T7 to names that do not appear in D
