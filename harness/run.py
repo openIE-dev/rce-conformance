@@ -79,6 +79,10 @@ def judge(t, a, ops):
     if exp in ("accept", "reject"):
         files = {"main.rce": src, **t.get("fixtures", {})}
         r = a.call({"op": "check", "files": files, "source": src})
+        if "unsupported" in r:   # ADAPTERS.md: any response may be unsupported
+            return "unsupported", r["unsupported"]
+        if "error" in r:
+            return "fail", f"check error: {r['error'][:300]}"
         if r.get("verdict") != exp:
             return "fail", f"expected {exp}, got {r.get('verdict')}: {json.dumps(r.get('diagnostics'))[:300]}"
         if exp == "reject" and m.get("diagnostic") not in (None, "any"):
