@@ -21,6 +21,8 @@ Shipped adapters: `reference` (the `rce-conform` binary from
 `--run --fuel=N`, events as appended `example` blocks), `wasm-playground`
 (check only, via node), `lean-core` (`rce-conform-lean` from
 `crates/rce/spec/checker`: reference entry, then the Lean core semantics in
-`spec/lean` on the elaborated `fn main`; run op only, programs outside the
-core subset are `unsupported`; env `RCE_CONFORM_LEAN`, `RCE_LEAN_DIR`). Emitted programs cannot observe a trap on the last
+`spec/lean` on the elaborated `fn main` or event run; `check` answers
+`accept` only when the Lean checker (`RCE/Core/Check.lean`, `inf_sound`)
+shows the elaborated program well typed, and rejections are `unsupported`;
+programs outside the core subset are `unsupported`; env `RCE_CONFORM_LEAN`, `RCE_LEAN_DIR`). Emitted programs cannot observe a trap on the last
 event (see finding EXAMPLE-TRAP), so those cases are `unsupported`.
